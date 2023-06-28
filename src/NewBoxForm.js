@@ -19,23 +19,33 @@ function NewBoxForm(props) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor='height'>Height</label>
+        <label htmlFor='height'>Height(em)</label>
         <input
           type='text'
           name='height'
           value={state.height}
           onChange={handleChange}
           id='height'
+          onKeyPress={(event) => {
+            if (!/[0-9]/.test(event.key)) {
+              event.preventDefault();
+            }
+          }}
         />
       </div>
       <div>
-        <label htmlFor='width'>Width</label>
+        <label htmlFor='width'>Width(em)</label>
         <input
           type='text'
           name='width'
           value={state.width}
           onChange={handleChange}
           id='width'
+          onKeyPress={(event) => {
+            if (!/[0-9]/.test(event.key)) {
+              event.preventDefault();
+            }
+          }}
         />
       </div>
       <div>
@@ -48,7 +58,9 @@ function NewBoxForm(props) {
           id='color'
         />
       </div>
-      <button>Add New Box</button>
+      <button disabled={!state.height || !state.width || !state.color}>
+        Add New Box
+      </button>
     </form>
   );
 }
